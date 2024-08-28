@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/ui/screens/auth/forget_password.dart';
+import 'package:recipe_app/ui/screens/auth/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -50,7 +51,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     BounceInRight(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (ctx) {
+                                return RegisterScreen();
+                              },
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Register',
                           style: TextStyle(

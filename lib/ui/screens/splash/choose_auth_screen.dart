@@ -89,9 +89,18 @@ class CreateAccountScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      child: const Text(
-                        'Register using email',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.mail_outline,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Register using email',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -116,7 +125,10 @@ class CreateAccountScreen extends StatelessWidget {
                                 side: const BorderSide(color: Colors.grey),
                               ),
                             ),
-                            icon: const Icon(Icons.mail, color: Colors.red),
+                            icon: Image.asset(
+                              'assets/images/google.png',
+                              height: 24,
+                            ),
                             label: const Text(''),
                           ),
                         ),
