@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_app/ui/screens/auth/login_screen.dart';
 import 'package:recipe_app/ui/screens/auth/register_screen.dart';
 
 class CreateAccountScreen extends StatelessWidget {
@@ -173,7 +174,14 @@ class CreateAccountScreen extends StatelessWidget {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  // Navigate to login page
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (ctx) {
+                                        return LoginScreen();
+                                      },
+                                    ),
+                                  );
                                 },
                             ),
                           ],
