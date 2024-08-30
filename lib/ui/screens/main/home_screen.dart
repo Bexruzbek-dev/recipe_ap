@@ -5,6 +5,7 @@ import 'package:recipe_app/logic/blocs/auth/auth_event.dart';
 import 'package:recipe_app/logic/blocs/auth/auth_state.dart';
 import 'package:recipe_app/logic/services/auth_service.dart';
 import 'package:recipe_app/ui/screens/auth/login_screen.dart';
+import 'package:recipe_app/ui/screens/main/edit.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final authService = AuthService();
   String? username;
+  String? photo;
 
   @override
   void initState() {
@@ -25,8 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _fetchUserData() async {
     final data = await authService.getCurrentUser();
+
     setState(() {
       username = data['data']['name'];
+      photo = data['data']['photo'];
     });
   }
 
@@ -61,17 +65,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icons.logout,
               ),
             ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) {
+                      return EditProfileScreen();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.settings,
+              ),
+            ),
           ],
         ),
-        body: Center(
-          child: username == null
-              ? const CircularProgressIndicator()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(username ?? "No User"),
-                  ],
-                ),
+        body: Column(
+          children: [
+            Center(
+              child: Image.network(
+                  loadingBuilder: (context, child, loadingProgress) {
+                return loadingProgress != null
+                    ? CircularProgressIndicator()
+                    : child;
+              },
+                  photo == null
+                      ? "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+                      : 'http://recipe.flutterwithakmaljon.uz/storage/avatars/$photo'),
+            ),
+            Center(
+              child: username == null
+                  ? const CircularProgressIndicator()
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(username ?? "No User"),
+                      ],
+                    ),
+            ),
+          ],
         ),
       ),
     );
